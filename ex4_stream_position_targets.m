@@ -27,6 +27,8 @@ yyaxis right
 p1 = plot (x,r);
 ylim([-10 10]);
 ylabel('Force (N)');
+ytickformat('%.3f')
+%yticks(-30:1:10);
 
 % Memory Map register address
 MODE_OF_OPERATION_address   = 317;
@@ -53,13 +55,13 @@ while true
         % Create a 'walking' plot of the data
     iteration = iteration + 1;
     if iteration <= num_samples
-        y(iteration) = orca.position/1000.;
-        r(iteration) = orca.force/1000.;
+        y(iteration) = double(orca.position)/1000.;
+        r(iteration) = double(orca.force)/1000.;
     else
         y = circshift(y, -1);
          r = circshift(r, -1);
-        y(end) = orca.position/1000.;
-        r(end) = orca.force/1000.;
+        y(end) = double(orca.position)/1000.;
+        r(end) = double(orca.force)/1000.;
     end
     set(p, 'XData',x, 'YData', y)
     set(p1, 'XData',x, 'YData', r)
