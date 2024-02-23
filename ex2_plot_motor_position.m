@@ -24,10 +24,10 @@ while true
     % Create a 'walking' plot of the data
     iteration = iteration + 1;
     if iteration <= num_samples
-        y(iteration) = orca.position/1000.;
+        y(iteration) = double(orca.position)/1000.;
     else
         y = circshift(y, -1);
-        y(end) = orca.position/1000.;
+        y(end) = double(orca.position)/1000.;
     end
     set(p, 'XData',x, 'YData', y)
     drawnow
