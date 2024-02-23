@@ -27,8 +27,6 @@ yyaxis right
 p1 = plot (x,r);
 ylim([-10 10]);
 ylabel('Force (N)');
-ytickformat('%.3f')
-%yticks(-30:1:10);
 
 % Memory Map register address
 MODE_OF_OPERATION_address   = 317;
