@@ -5,7 +5,7 @@ clear;
 portnum = inputdlg('Enter RS422 COM Port Number:'); % Enter the com port number used by the RS422 cable
 port = strcat("COM", portnum);
 
-orca = Actuator(port, 912600);    %COM port of RS422 Modbus channel to Orca Series Motor and default Modbus baud rate
+orca = Actuator(port, 19200);    %COM port of RS422 Modbus channel to Orca Series Motor and default Modbus baud rate
 
 % a plot to monitor the position of the shaft
 % also displays motor temperature and force values
