@@ -5,7 +5,7 @@ ERROR_0_address = 432; % register contains the active errors of the motor, full 
 portnum = inputdlg('Enter RS422 COM Port Number:'); % Enter the com port number used by the RS422 cable
 port = strcat("COM", portnum);
 
-orca = Actuator(port, 921600);    %COM port of RS422 Modbus channel to Orca Series Motor and default Modbus baud rate, can be configured in IrisControls Modbus page
+orca = Actuator(port, 19200);    %COM port of RS422 Modbus channel to Orca Series Motor and default Modbus baud rate, can be configured in IrisControls Modbus page
 
 ERROR_0_value = 0;
 % Loop while reading the error register and break if errors are encountered
