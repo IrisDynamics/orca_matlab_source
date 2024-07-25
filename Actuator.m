@@ -198,8 +198,32 @@ classdef Actuator < handle
             configuration = [p_gain, i_gain, dv_gain, de_gain , saturationL_H];
             obj.write_multi_registers(133, 6, configuration);  % PC_PGAIN 133, num consecutive registers 6, register values  configuration
         end
-        
 
+        
+        %% Change Motor Direction
+        % Sets the motor direction to 0 or 1
+        function set_direction(obj, direction)
+            obj.write_register(152, direction);   %POS_SIGN
+        end
+
+        %% Configure AutoZero
+        % Set autozero with configuration:
+        %ZERO_MODE: 0: zero negative positions, 1: manual zeroing, 2: Auto Zero
+        %Enabled, 3:Auto Zero on Boot
+        %EXIT_MODE: 1: sleep, 2: force, 3: position,4: Haptic,5:Kinematic
+        function configure_zero(obj, ZERO_MODE, AUTO_ZERO_FORCE_N, AUTO_ZERO_EXIT_MODE)
+            configuration = [ZERO_MODE AUTO_ZERO_FORCE_N AUTO_ZERO_EXIT_MODE];
+            obj.write_multi_registers(171, 3, configuration);  %autozero configuration writing
+        end
+
+        %% Trigger Autozero
+        % Trigger Autozero using ctrl register
+        function trigger_zero(obj)
+            obj.write_register(3, 55);   %Trigger Zeroing
+            while obj.read_register(317,1)==55
+            end
+        end
+        
         %% Write Single Registers
         %Write a value to a single register
         function write_register(obj, register_address, value)
