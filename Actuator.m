@@ -203,6 +203,7 @@ classdef Actuator < handle
         %% Change Motor Direction
         % Sets the motor direction to 0 or 1
         function set_direction(obj, direction)
+            obj.write_register(obj.CTRL_REG_0, 4);   %POS_SIGN
             obj.write_register(152, direction);   %POS_SIGN
         end
 
@@ -217,10 +218,12 @@ classdef Actuator < handle
         end
 
         %% Trigger Autozero
-        % Trigger Autozero using ctrl register
-        function trigger_zero(obj)
+        % Trigger Autozero using ctrl register and wait for the zeroing to
+        % complete
+        function auto_zero_wait(obj)
             obj.write_register(3, 55);   %Trigger Zeroing
-            while obj.read_register(317,1)==55
+            pause(0.1); %Momentary pause before checking register
+            while obj.read_register(317,1)==55 %Ensures other code does not get passed to the motor while zeroing
             end
         end
         
